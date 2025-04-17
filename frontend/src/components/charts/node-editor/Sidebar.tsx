@@ -10,11 +10,15 @@ export default ({ nodes, setNodes }: { nodes: Node[]; setNodes: any }) => {
     const selectNode = useCallback((value: string) => {
         setNodes((nodes: Node[]) =>
             nodes.map((node) => {
-                let matchesFilter: boolean = node.id === value;
-                console.log("matchesFilter", value);
+                let isSelected: boolean = node.id === value;
                 return {
                     ...node,
-                    selected: matchesFilter,
+                    selected: isSelected,
+                    style: {
+                        ...node.style,
+                        backgroundColor: isSelected ? '#eee' : '#fff',
+                        border: isSelected ? '2px solid #000' : '1px solid #ddd',
+                    },
                 };
             }),
         );
