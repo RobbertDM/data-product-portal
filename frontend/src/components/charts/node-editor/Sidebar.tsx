@@ -1,11 +1,12 @@
 import { useCallback } from 'react';
-import { Node, useStore } from '@xyflow/react';
+import { Node, useReactFlow, useStore } from '@xyflow/react';
 import { Select } from 'antd';
 
 const transformSelector = (state: any) => state.transform;
 
 export default ({ nodes, setNodes }: { nodes: Node[]; setNodes: any }) => {
     const transform = useStore(transformSelector);
+    const { setCenter } = useReactFlow();
 
     const selectNode = useCallback((value: string) => {
         setNodes((nodes: Node[]) =>
@@ -22,6 +23,14 @@ export default ({ nodes, setNodes }: { nodes: Node[]; setNodes: any }) => {
                 };
             }),
         );
+        const nodeToFocus = nodes.find((n) => n.id === value);
+        if (nodeToFocus) {
+            setCenter(nodeToFocus.position.x, nodeToFocus.position.y, {
+                zoom: 1.2, // adjust as needed
+                duration: 800,
+            });
+        }
+
     }, [setNodes]);
 
     return (
