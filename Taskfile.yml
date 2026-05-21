@@ -152,3 +152,9 @@ tasks:
     dir: backend
     cmds:
       - poetry install
+
+  terraform-provider:docs:
+    desc: "Generate Terraform provider documentation"
+    dir: terraform-provider-dataproductportal
+    cmds:
+      - go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@latest generate
